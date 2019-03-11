@@ -1,14 +1,16 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import HeaderContainer from './components/Header/HeaderContainer';
+import Routes from './Routes';
 
 class Root extends React.Component {
     render() {
         return (
-            <View>
-                <HeaderContainer headerText="To-Do List"/>
-
-            </View>
+            <Routes />
+            // <View>
+            //     <HeaderContainer headerText="To-Do List"/>
+            //     <Routes />
+            // </View>
         );
     }
 }
