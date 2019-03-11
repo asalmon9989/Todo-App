@@ -3,7 +3,6 @@ import React from 'react';
 import { Actions } from 'react-native-router-flux';
 
 const Test = () => {
-  console.log("Test");
   return (
     <View style={styles.container}>
       <Text>Another screen!</Text>

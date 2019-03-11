@@ -4,20 +4,20 @@ import RadioButton from './RadioButton';
 
 /**
  * 
- * @param {task, project, priority, onPress, onLongPress, onRadioPress } props 
+ * @param {task, project, priority, onPress, onLongPress, onRadioPress, project, textStyle, projectStyle, backgroundColor, radioColor, radioSize } props 
  *  - 
  */
 const Task = (props) => {
   return (
-    <TouchableOpacity onPress={props.onPress} onLongPress={props.onLongPress}>
+    <TouchableOpacity onPress={props.onPress} onLongPress={props.onLongPress} style={{ backgroundColor: props.backgroundColor }}>
       <View style={styles.container}>
         
         <View style={styles.taskContainer}>
-          <RadioButton style={styles.radioStyle} onPress={props.onRadioPress}></RadioButton>
-          <Text style={styles.taskTextStyle}>{props.task}</Text>
+          <RadioButton style={styles.radioStyle} onPress={props.onRadioPress} radius={props.radioSize} selectedColor={props.radioColor} borderColor={props.radioColor}></RadioButton>
+          <Text style={[styles.taskTextStyle, props.textStyle]}>{props.task}</Text>
         </View>
         <View style={styles.projectContainer}>
-          <Text style={styles.projectTextStyle}>Project</Text>
+          <Text style={[styles.projectTextStyle, props.projectStyle]}>{props.project}</Text>
         </View>
       </View>
     </TouchableOpacity>

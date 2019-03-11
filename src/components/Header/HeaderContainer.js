@@ -7,20 +7,24 @@ import HeaderSection from './HeaderSection';
 const STATUS_HEIGHT = StatusBar.currentHeight;
 const ICON_SIZE = 24;
 
+/**
+ * 
+ * @param { headerText, textSize, iconSize, onMenuPress, onSearchPress, onOptionsPress, backgroundColor, borderColor, menuIconColor, searchIconColor, dotsIconColor, textStyle} props 
+ */
 const Header = (props) => {
 
     return (
-        <HeaderSection statusHeight={STATUS_HEIGHT}>
+        <HeaderSection statusHeight={STATUS_HEIGHT} style={{ backgroundColor: props.backgroundColor, borderColor: props.borderColor }}>
             {/* Menu button gets flex 2 so header text stays centered */}
             <TouchableOpacity onPress={props.onMenuPress} style={[styles.iconStyle, {flex: 2}]}>
-                <MaterialIcons name='menu' size={props.iconSize} />
+                <MaterialIcons name='menu' size={props.iconSize} color={props.menuIconColor} />
             </TouchableOpacity>
-            <Text style={styles.textStyle}>{props.headerText}</Text>
-            <TouchableOpacity onPress={props.onGPSPress} style={styles.iconStyle}>
-                <MaterialIcons name='search' size={props.iconSize} />
+            <Text style={[styles.textStyle, props.textStyle]} >{props.headerText}</Text>
+            <TouchableOpacity onPress={props.onSearchPress} style={styles.iconStyle}>
+                <MaterialIcons name='search' size={props.iconSize} color={props.searchIconColor}/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={props.dotsVertical} style={styles.iconStyle}>
-                <MaterialCommunityIcons name='dots-vertical' size={props.iconSize} />
+            <TouchableOpacity onPress={props.onOptionsPress} style={styles.iconStyle}>
+                <MaterialCommunityIcons name='dots-vertical' size={props.iconSize} color={props.dotsIconColor}/>
             </TouchableOpacity>
         </HeaderSection>
     )  
@@ -31,8 +35,14 @@ Header.propTypes = {
     textSize: PropTypes.number,
     iconSize: PropTypes.number,
     onMenuPress: PropTypes.func,
-    onPlusPress: PropTypes.func,
-    onOptionsPress: PropTypes.func
+    onSearchPress: PropTypes.func,
+    onOptionsPress: PropTypes.func,
+    backgroundColor: PropTypes.string, 
+    borderColor: PropTypes.string, 
+    menuIconColor: PropTypes.string, 
+    searchIconColor: PropTypes.string, 
+    dotsIconColor: PropTypes.string, 
+    textStyle: PropTypes.object
 }
 
 Header.defaultProps = {
@@ -50,7 +60,6 @@ const styles = StyleSheet.create({
     textStyle: {
         flex: 7,
         fontSize: ICON_SIZE,
-        textAlign: 'center',
         alignSelf: 'center'
     }
 });

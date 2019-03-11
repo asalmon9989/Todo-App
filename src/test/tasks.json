@@ -1,0 +1,9 @@
+[
+    {"id": 1, "text": "Make an app already. I mean, you can't just keep reading tutorials about stuff. Otherwise, you'll have nothing to show for everything you know.", "priority": "Urgent", "project": "Coding"},
+    {"id": 2, "text": "Do Things", "priority": "Normal", "project": "None"},
+    {"id": 3, "text": "Test the app with less text.", "priority": "Normal", "project": "Coding"},
+    {"id": 4, "text": "Test the app with lots of lines os text.", "priority": "Normal", "project": "Coding"},
+    {"id": 5, "text": "It's gonna have enough stuff so we can test scrolling.", "priority": "Normal", "project": "Coding"},
+    {"id": 6, "text": "Need a few more", "priority": "Normal", "project": ""},
+    {"id": 7, "text": "That should be good.", "priority": "Normal", "project": "Coding"}
+]

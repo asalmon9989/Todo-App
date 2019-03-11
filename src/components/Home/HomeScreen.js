@@ -1,21 +1,36 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import React from 'react';
 
 import Task from '../common/Task';
 
-const AddScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Task task="Make an app already. I mean, you can't just keep reading tutorials about stuff. Otherwise, you'll have nothing to show for everything you know."
-        onPress={() => console.log('press')}
-        onLongPress={() => console.log("long boi press")}
-        onRadioPress={() => console.log('radio press')}
-      >
-      </Task>
-      <Task task="Test the app with less text."></Task>
-    </View>
-  );
-};
+const t = require('../../test/tasks');
+
+class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { tasks: [] };
+  }
+
+  componentDidMount() { 
+    this.setState({ tasks: t });
+  }
+
+  _renderItem = ({ item }) => {
+    return (
+      <Task task={item.text} project={item.project} radioColor='green'/>
+    )
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <FlatList renderItem={this._renderItem} keyExtractor={(item, i) => item.id.toString()} data={this.state.tasks}>
+
+        </FlatList>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -27,4 +42,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default AddScreen;
+export default HomeScreen;

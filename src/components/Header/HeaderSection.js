@@ -14,8 +14,9 @@ const styles = StyleSheet.create({
     headerStyle: {
         flexDirection: 'row',
         borderBottomWidth: 2,
-        borderColor: 'rgba(0,0,0,0.3)'
+        borderColor: 'rgba(0,0,0,0.3)',
+        backgroundColor: 'white'
     }
 });
 
-export default HeaderSection;
+export default HeaderSection; 

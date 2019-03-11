@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 
 /**
- * Props:
+ * @param props
  *  - style: style for container
  *  - selectedColor: inner circle color
  *  - radius: outer circle radius
