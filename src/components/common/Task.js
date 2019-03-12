@@ -23,6 +23,11 @@ const Task = (props) => {
     </TouchableOpacity>
   );
 };
+/**
+ * @todo add prop types & default props
+ */
+// Task.propTypes = {}
+// Task.defaultProps = {}
 
 const styles = StyleSheet.create({
   container: {

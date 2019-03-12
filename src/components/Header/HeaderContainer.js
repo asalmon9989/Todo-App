@@ -15,7 +15,6 @@ const Header = (props) => {
 
     return (
         <HeaderSection statusHeight={STATUS_HEIGHT} style={{ backgroundColor: props.backgroundColor, borderColor: props.borderColor }}>
-            {/* Menu button gets flex 2 so header text stays centered */}
             <TouchableOpacity onPress={props.onMenuPress} style={[styles.iconStyle, {flex: 2}]}>
                 <MaterialIcons name='menu' size={props.iconSize} color={props.menuIconColor} />
             </TouchableOpacity>
