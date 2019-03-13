@@ -29,7 +29,10 @@ CircleButton.defaultProps = {
     onPress: () => {},
     onLongPress: () => {}
 };
-
+/**
+ * 
+ * @todo refactor 
+ */
 const getPropStyles = (options) => {
     let fontSize;
     if (options.symbol.length > 1) {
