@@ -5,13 +5,16 @@ import { View, Text, StyleSheet } from 'react-native';
  * 
  * @param {object} props 
  * @param {string} props.day
+ * @param {string} props.dayColor
  * @param {string} props.date
- * @param {} props.rightIcon
+ * @param {string} props.dateColor
+ * @param {string} props.backgroundColor
+ * @param {function} props.renderRightComponent
  */
 const DateSection = (props) => {
 
     return (
-        <View style={styles.containerStyle}>
+        <View style={[styles.containerStyle,{backgroundColor: props.backgroundColor},  props.style]}>
             <View style={styles.textContainerStyle}>
                 <Text style={[styles.textStyle, styles.dayStyle]}>{props.day}  </Text>
                 <Text style={[styles.textStyle, styles.dateStyle]}>  {props.date}</Text>
@@ -31,7 +34,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: 'rgba(0,0,0,0.5)',
 
-        position: 'absolute',
+        // position: 'absolute',
         elevation: 4,
         backgroundColor: 'white',
         height: 40,

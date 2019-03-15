@@ -8,7 +8,6 @@ import HomeScreen from './components/Home/HomeScreen';
 import HomeNavBar from './components/common/HomeNavBar';
 import { MaterialIcons } from '@expo/vector-icons';
 
-
 {/* <MaterialIcons name='menu' size={props.iconSize} /> */}
 
 const Routes = () => {

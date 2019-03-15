@@ -8,6 +8,7 @@ const t = require('../../test/tasks');
 const {width, height} = Dimensions.get('window');
 import { Actions } from 'react-native-router-flux';
 import DateSection from '../common/DateSection';
+import TaskList from '../TaskList/TaskList';
 
 const RightIcon = () => {
   return (
@@ -23,7 +24,6 @@ class HomeScreen extends React.Component {
 
   componentDidMount() { 
     this.setState({ tasks: t });
-
   }
 
   
@@ -37,9 +37,10 @@ class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <DateSection day="Tomorrow" date="Wed. 3/13/19" renderRightComponent={RightIcon}/>
-        <View style={{ marginTop: 40 }}>
-          <FlatList renderItem={this._renderItem} keyExtractor={(item, i) => item.id.toString()} data={this.state.tasks} />
+        {/* <DateSection day="Tomorrow" date="Wed. 3/13/19" renderRightComponent={RightIcon}/> */}
+        <View >
+          {/* <FlatList renderItem={this._renderItem} keyExtractor={(item, i) => item.id.toString()} data={this.state.tasks} /> */}
+          <TaskList />
         </View>
         <View style={{ position: 'absolute', top: height*.7, right: width*.1 }}>
           <CircleButton backgroundColor='rgb(79, 135, 245)' radius={55} onLongPress={() => console.log("Circle Press")}  onPress={() => Actions.push("AddScreen") }>
