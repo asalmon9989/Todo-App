@@ -9,13 +9,10 @@ const {width, height} = Dimensions.get('window');
 import { Actions } from 'react-native-router-flux';
 import DateSection from '../common/DateSection';
 import TaskList from '../TaskList/TaskList';
+import COLORS from '../../config/colors';
 
-const RightIcon = () => {
-  return (
-    <MaterialIcons name='perm-contact-calendar' color='blue' size={20}></MaterialIcons>
-  );
-};
 
+ 
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -43,8 +40,8 @@ class HomeScreen extends React.Component {
           <TaskList />
         </View>
         <View style={{ position: 'absolute', top: height*.7, right: width*.1 }}>
-          <CircleButton backgroundColor='rgb(79, 135, 245)' radius={55} onLongPress={() => console.log("Circle Press")}  onPress={() => Actions.push("AddScreen") }>
-            <MaterialIcons name='add' size={30} color={'white'}/>
+          <CircleButton backgroundColor={COLORS.floatBackground} radius={55} onLongPress={() => console.log("Circle Press")}  onPress={() => Actions.push("AddScreen") }>
+            <MaterialIcons name='add' size={30} color={COLORS.floatIcon}/>
           </CircleButton>
         </View>
       </View>

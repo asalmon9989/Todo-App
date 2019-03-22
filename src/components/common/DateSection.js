@@ -16,8 +16,8 @@ const DateSection = (props) => {
     return (
         <View style={[styles.containerStyle,{backgroundColor: props.backgroundColor},  props.style]}>
             <View style={styles.textContainerStyle}>
-                <Text style={[styles.textStyle, styles.dayStyle]}>{props.day}  </Text>
-                <Text style={[styles.textStyle, styles.dateStyle]}>  {props.date}</Text>
+                <Text style={[styles.textStyle, styles.dayStyle, {color: props.dayColor}]}>{props.day}  </Text>
+                <Text style={[styles.textStyle, styles.dateStyle, {color: props.dateColor}]}>  {props.date}</Text>
             </View>
             <View style={styles.iconContainer}>
                 {props.renderRightComponent()}

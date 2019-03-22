@@ -13,7 +13,7 @@ const Task = (props) => {
       <View style={styles.container}>
         
         <View style={styles.taskContainer}>
-          <RadioButton style={styles.radioStyle} onPress={props.onRadioPress} radius={props.radioSize} selectedColor={props.radioColor} borderColor={props.radioColor}></RadioButton>
+          <RadioButton style={styles.radioStyle} onPress={props.onRadioPress} radius={props.radioSize} selectedColor={props.radioColor} borderColor={props.radioColor} selected={false}></RadioButton>
           <Text style={[styles.taskTextStyle, props.textStyle]}>{props.task}</Text>
         </View>
         <View style={styles.projectContainer}>

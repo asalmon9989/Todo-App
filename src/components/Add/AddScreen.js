@@ -1,12 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
+import Add from './Add';
 
 const AddScreen = () => {
-  console.log("Add");
   return (
-    <View style={styles.container}>
-      <Text>Add a new task</Text>
-    </View>
+    <Add />
   );
 };
 

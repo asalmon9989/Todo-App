@@ -9,6 +9,9 @@ import HomeNavBar from './components/common/HomeNavBar';
 import { MaterialIcons } from '@expo/vector-icons';
 
 {/* <MaterialIcons name='menu' size={props.iconSize} /> */}
+/**
+ * @todo wire header to redux
+ */
 
 const Routes = () => {
   return ( 
@@ -24,7 +27,7 @@ const Routes = () => {
         <Scene key="App">
           <Scene key="HomeScreen" component={HomeScreen} />
           <Scene key="test" component={Test}/> 
-          <Scene key="AddScreen" component={AddScreen} />
+          <Scene key="AddScreen" component={AddScreen} initial/>
         </Scene>
       </Drawer>
     </Router>

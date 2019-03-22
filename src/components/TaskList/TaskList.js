@@ -3,11 +3,12 @@ import { View, Text, SectionList } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import Task from '../common/Task';
 import DateSection from '../common/DateSection';
+import COLORS from '../../config/colors';
 
 
 const RightIcon = () => {
     return (
-      <MaterialIcons name='perm-contact-calendar' color='blue' size={20}></MaterialIcons>
+      <MaterialIcons name='perm-contact-calendar' color={COLORS.sectionIcon} size={20}></MaterialIcons>
     );
   };
 
@@ -41,13 +42,27 @@ class TaskList extends React.Component {
 
     _renderItem = ({ item }) => {
         return (
-          <Task task={item.text} project={item.project} onPress={() => console.log('task press')}/>
+            <Task 
+                task={item.text} 
+                project={item.project} 
+                textStyle={{color: COLORS.taskText}} 
+                radioColor={COLORS.taskText}
+                backgroundColor={COLORS.taskBackground}
+                onPress={() => console.log('task press')}
+            />
         )
     }
 
     _renderSectionHeader(item) { 
         return (
-            <DateSection day={item.section.title.day} date={item.section.title.date} renderRightComponent={RightIcon} backgroundColor="#444"/>
+            <DateSection 
+                day={item.section.title.day} 
+                date={item.section.title.date} 
+                renderRightComponent={RightIcon} 
+                dayColor={COLORS.sectionText} 
+                dateColor={COLORS.sectionDate}
+                backgroundColor={COLORS.sectionBackground}
+            />
         )
     }
 
@@ -61,9 +76,7 @@ class TaskList extends React.Component {
                 sections={sections}
                 keyExtractor={(item, i) => i.toString()}
                 ref={ref => (this.sectionListRef = ref)}
-            >
-
-            </SectionList>
+            />
         )
     }
 };
