@@ -2,10 +2,15 @@ import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
 import Add from './Add';
 
-const AddScreen = () => {
-  return (
-    <Add />
-  );
+class AddScreen extends React.Component {
+  
+  render() {
+    return (
+      <Add 
+        
+      />
+    );
+  }
 };
 
 const styles = StyleSheet.create({

@@ -3,6 +3,7 @@ import React from 'react';
 
 import Task from '../common/Task';
 import CircleButton from '../common/CircleButton';
+import BottomRightFloat from '../common/BottomRightFloat';
 import { MaterialIcons } from '@expo/vector-icons';
 const t = require('../../test/tasks');
 const {width, height} = Dimensions.get('window');
@@ -39,11 +40,12 @@ class HomeScreen extends React.Component {
           {/* <FlatList renderItem={this._renderItem} keyExtractor={(item, i) => item.id.toString()} data={this.state.tasks} /> */}
           <TaskList />
         </View>
-        <View style={{ position: 'absolute', top: height*.7, right: width*.1 }}>
+        
+        <BottomRightFloat>
           <CircleButton backgroundColor={COLORS.floatBackground} radius={55} onLongPress={() => console.log("Circle Press")}  onPress={() => Actions.push("AddScreen") }>
             <MaterialIcons name='add' size={30} color={COLORS.floatIcon}/>
           </CircleButton>
-        </View>
+        </BottomRightFloat>
       </View>
     );
   }
