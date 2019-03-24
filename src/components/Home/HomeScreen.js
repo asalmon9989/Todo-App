@@ -38,9 +38,9 @@ class HomeScreen extends React.Component {
         {/* <DateSection day="Tomorrow" date="Wed. 3/13/19" renderRightComponent={RightIcon}/> */}
         <View >
           {/* <FlatList renderItem={this._renderItem} keyExtractor={(item, i) => item.id.toString()} data={this.state.tasks} /> */}
-          <TaskList />
+          <TaskList tasks={this.state.tasks} />
         </View>
-        
+
         <BottomRightFloat>
           <CircleButton backgroundColor={COLORS.floatBackground} radius={55} onLongPress={() => console.log("Circle Press")}  onPress={() => Actions.push("AddScreen") }>
             <MaterialIcons name='add' size={30} color={COLORS.floatIcon}/>

@@ -27,7 +27,7 @@ const Routes = () => {
         <Scene key="App">
           <Scene key="HomeScreen" component={HomeScreen} />
           <Scene key="test" component={Test}/> 
-          <Scene key="AddScreen" component={AddScreen} initial/>
+          <Scene key="AddScreen" component={AddScreen}/>
         </Scene>
       </Drawer>
     </Router>

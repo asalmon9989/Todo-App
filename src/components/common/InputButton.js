@@ -6,8 +6,8 @@ const InputButton = (props) => {
             <TouchableOpacity onPress={props.onPress} onLongPress={props.onLongPress}  style={styles.container}>
                 <View style={styles.iconContainer}>{props.icon}</View>
                 <View style={styles.rightContainer}>
-                    <Text style={styles.labelStyle}>{props.label}</Text>
-                    <TextInput style={styles.valueStyle} editable={props.editable}>{props.value}</TextInput>
+                    <Text style={[styles.labelStyle, {color: props.textColor}]}>{props.label}</Text>
+                    <TextInput style={styles.valueStyle} editable={props.editable} placeholder={props.placeholder}>{props.value}</TextInput>
                 </View>
             </TouchableOpacity>
     );

@@ -17,6 +17,7 @@ const Input = ( { label, value, onChangeText, placeholder, secureTextEntry, auto
 				underlineColorAndroid='transparent'
 				autoCapitalize={autoCapitalize}
 				keyboardType={keyboardType || 'default'}
+				multiline={multiline}
 			/>
 		</View>
 
