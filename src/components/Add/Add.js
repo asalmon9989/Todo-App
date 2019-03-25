@@ -1,13 +1,17 @@
 import React from 'react';
-import { View, ScrollView, TextInput, Text, StyleSheet, Dimensions, AsyncStorage } from 'react-native';
+import { View, ScrollView, TextInput, Text, StyleSheet, Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
+
+import firebase from '@firebase/app';
+import '@firebase/database';
+
 import Input from '../common/Input';
 import InputButton from '../common/InputButton';
 import CircleButton from '../common/CircleButton';
 import BottomRightFloat from '../common/BottomRightFloat';
 import { MaterialIcons, MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
-import { taskChanged, notesChanged, categoryChanged, dueDateChanged, category, alertChanged, priorityChanged } from '../../actions'
+import { taskChanged, notesChanged, categoryChanged, dueDateChanged, category, alertChanged, priorityChanged } from '../../actions';
 import COLORS from '../../config/colors';
 
 const {width, height} = Dimensions.get('window');
@@ -26,37 +30,15 @@ class Add extends React.Component {
     constructor(props) {
         super(props);
         this.taskList = [];
-        AsyncStorage.getItem('taskList', (err, res) => {
-            if (err) {
-                console.log("error: ", err);
-            } else {
-                console.log("success?: ", JSON.parse(res));
-                this.taskList = JSON.parse(res);
-                if (res === null) {
-                    AsyncStorage.setItem('taskList', "[]", (err) => {
-                        if (err) {
-                            console.log("Couldn't initialize tasks in AsyncStorage: ", err);
-                        }
-                    })
-                }
-            }
-        });
     }
     componentDidMount() {
         this.__populateState();
     }
     __populateState() {
         this.props.categoryChanged("Redux");
-        this.props.dueDateChanged("03-51-2019");
+        this.props.dueDateChanged("03-30-2019");
         this.props.priorityChanged("HiGh");
         this.props.alertChanged("Nope");
-    }
-    __clearStorage() {
-        AsyncStorage.removeItem('taskList', (err) => {
-            if (err) {
-                console.log("Error removing taskList")
-            }
-        })
     }
 
 
@@ -88,14 +70,10 @@ class Add extends React.Component {
         Actions.popTo('HomeScreen');
     }
     saveTask(task) {
-        this.taskList.push(task);
-        AsyncStorage.setItem('taskList', JSON.stringify(this.taskList), (err) => {
-            if (err) {
-                alert("Could not save task list");
-            } else {
-                alert("Task saved");
-            } 
-        })
+        
+        firebase.database().ref(`/taskList`)
+            .push(task)
+            .then(() => console.log("Task saved to firebase."));
     }
     parseTask() {
         const { task, notes, category, dueDate, priority, alert } = this.props;

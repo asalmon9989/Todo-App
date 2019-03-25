@@ -8,30 +8,41 @@ import HomeScreen from './components/Home/HomeScreen';
 import HomeNavBar from './components/common/HomeNavBar';
 import { MaterialIcons } from '@expo/vector-icons';
 
+require('./config/firebase_init');
+
 {/* <MaterialIcons name='menu' size={props.iconSize} /> */}
 /**
  * @todo wire header to redux
  */
 
-const Routes = () => {
-  return ( 
-    <Router>
-      <Drawer
-        navBar={HomeNavBar} 
-        key="drawerMenu"
-        contentComponent={DrawerContent}
-        drawerIcon={<MaterialIcons name='menu' size={32}/>}
-        drawerWidth={250}
-        drawerPosition="left"
-      >
-        <Scene key="App">
-          <Scene key="HomeScreen" component={HomeScreen} />
-          <Scene key="test" component={Test}/> 
-          <Scene key="AddScreen" component={AddScreen}/>
-        </Scene>
-      </Drawer>
-    </Router>
-  )
+class Routes extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  componentDidMount() {
+  }
+
+
+  render() {
+    return ( 
+      <Router>
+        <Drawer
+          navBar={HomeNavBar} 
+          key="drawerMenu"
+          contentComponent={DrawerContent}
+          drawerIcon={<MaterialIcons name='menu' size={32}/>}
+          drawerWidth={250}
+          drawerPosition="left"
+        >
+          <Scene key="App">
+            <Scene key="HomeScreen" component={HomeScreen} />
+            <Scene key="test" component={Test}/> 
+            <Scene key="AddScreen" component={AddScreen}/>
+          </Scene>
+        </Drawer>
+      </Router>
+    )
+  }
 };
 
 export default Routes;

@@ -5,4 +5,4 @@ npm-debug.*
 *.p12
 *.key
 *.mobileprovision
-src/config/firebase.json
+src/config/firebase_init.js
