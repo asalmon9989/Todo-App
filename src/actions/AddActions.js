@@ -1,4 +1,4 @@
-import { TASK_CHANGED, NOTES_CHANGED, CATEGORY_CHANGED, DUE_DATE_CHANGED, PRIORITY_CHANGED, ALERT_CHANGED } from './types';
+import { TASK_CHANGED, NOTES_CHANGED, CATEGORY_CHANGED, DUE_DATE_CHANGED, PRIORITY_CHANGED, ALERT_CHANGED, CLEAR_ADD_FORM } from './types';
 
 export const taskChanged = (text) => {
   return {
@@ -36,3 +36,9 @@ export const alertChanged = (text) => {
     payload: text
   };
 };
+export const clearAddForm = () => {
+  return {
+    type: CLEAR_ADD_FORM,
+    payload: ''
+  }
+}

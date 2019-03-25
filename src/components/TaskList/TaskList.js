@@ -43,12 +43,12 @@ class TaskList extends React.Component {
     _renderItem = ({ item }) => {
         return (
             <Task 
-                task={item.text} 
-                project={item.project} 
+                task={item.task} 
+                project={item.category} 
                 textStyle={{color: COLORS.taskText}} 
                 radioColor={COLORS.taskText}
                 backgroundColor={COLORS.taskBackground}
-                onPress={() => console.log('task press')}
+                onPress={() => this.props.onItemPress}
             />
         )
     }
@@ -73,7 +73,7 @@ class TaskList extends React.Component {
                 stickySectionHeadersEnabled
                 renderItem={this._renderItem.bind(this)}
                 renderSectionHeader={this._renderSectionHeader.bind(this)}
-                sections={sections}
+                sections={this.props.sections}
                 keyExtractor={(item, i) => i.toString()}
                 ref={ref => (this.sectionListRef = ref)}
             />

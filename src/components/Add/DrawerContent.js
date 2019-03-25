@@ -6,7 +6,7 @@ const DrawerContent = () => {
   return (
     <View style={styles.container}>
       <Text>Another screen!</Text>
-      <Button title="Add" onPress={() => Actions.push("AddScreen")} />
+      <Button title="Add" onPress={() => Actions.AddScreen()} />
       <Button title="Home" onPress={() => Actions.push("HomeScreen")} />
     </View>
   );

@@ -1,6 +1,9 @@
 import { View, Text, StyleSheet, FlatList, Dimensions } from 'react-native';
 import React from 'react';
 
+import _ from 'lodash';
+import firebase from '@firebase/app';
+import '@firebase/database';
 import Task from '../common/Task';
 import CircleButton from '../common/CircleButton';
 import BottomRightFloat from '../common/BottomRightFloat';
@@ -12,33 +15,57 @@ import DateSection from '../common/DateSection';
 import TaskList from '../TaskList/TaskList';
 import COLORS from '../../config/colors';
 
-
+const sections = [
+  {title: {day: "Today", date: "Fri. 3/13/19"} , data: [
+      {"id": 1, "task": "Make an app already. I mean, you can't just keep reading tutorials about stuff. Otherwise, you'll have nothing to show for everything you know.", "priority": "Urgent", "category": "Coding"},
+      {"id": 2, "task": "Do Things", "priority": "Normal", "category": "None"},
+      {"id": 3, "task": "Test the app with less text.", "priority": "Normal", "category": "Coding"}]},
+  {title: {day: "Tomorrow", date: "Sat. 3/13/19"} , data: [
+      {"id": 4, "task": "Test the app with lots of lines os text.", "priority": "Normal", "category": "Coding"},
+      {"id": 5, "task": "It's gonna have enough stuff so we can test scrolling.", "priority": "Normal", "category": "Coding"},
+      {"id": 6, "task": "Need a few more", "priority": "Normal", "category": ""},
+      {"id": 7, "task": "That should be good.", "priority": "Normal", "category": "Coding"}]},
+  {title: {day: "Sunday", date: "Sun. 3/13/19"} , data: [
+      {"id": 1, "task": "Make an app already. I mean, you can't just keep reading tutorials about stuff. Otherwise, you'll have nothing to show for everything you know.", "priority": "Urgent", "category": "Coding"},
+      {"id": 2, "task": "Do Things", "priority": "Normal", "category": "None"},
+      {"id": 3, "task": "Test the app with less text.", "priority": "Normal", "category": "Coding"}]},
+];
  
 class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { tasks: [] };
+    this.state = { tasks: [], sections: [] };
+
   }
 
   componentDidMount() { 
-    this.setState({ tasks: t });
+    //this.setState({ tasks: t });
+    firebase.database().ref('/taskList')
+      .on('value', snapshot => {
+        const tasks = _.map(snapshot.val(), (value, uid) => { return { ...value, uid } });
+        this.setState({ tasks });
+        this.groupTasks();
+      })
+  }
+  groupTasks() {
+    this.setState({sections: [
+      {title: {day: "Today", date: "Mon. 3-25-2019"}, data: this.state.tasks }
+    ]});
+    console.log(JSON.stringify(this.state.tasks));
   }
 
   
 
-  _renderItem = ({ item }) => {
-    return (
-      <Task task={item.text} project={item.project} />
-    )
-  }
+
 
   render() {
     return (
       <View style={styles.container}>
-        {/* <DateSection day="Tomorrow" date="Wed. 3/13/19" renderRightComponent={RightIcon}/> */}
         <View >
-          {/* <FlatList renderItem={this._renderItem} keyExtractor={(item, i) => item.id.toString()} data={this.state.tasks} /> */}
-          <TaskList tasks={this.state.tasks} />
+          <TaskList 
+            sections={this.state.sections}
+            onItemPress={() => console.log('task press')}  
+          />
         </View>
 
         <BottomRightFloat>

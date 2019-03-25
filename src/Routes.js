@@ -25,7 +25,7 @@ class Routes extends React.Component {
 
   render() {
     return ( 
-      <Router>
+      <Router> 
         <Drawer
           navBar={HomeNavBar} 
           key="drawerMenu"

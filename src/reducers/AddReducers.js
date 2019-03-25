@@ -1,4 +1,4 @@
-import { TASK_CHANGED, NOTES_CHANGED, CATEGORY_CHANGED, DUE_DATE_CHANGED, PRIORITY_CHANGED, ALERT_CHANGED } from '../actions/types';
+import { TASK_CHANGED, NOTES_CHANGED, CATEGORY_CHANGED, DUE_DATE_CHANGED, PRIORITY_CHANGED, ALERT_CHANGED, CLEAR_ADD_FORM } from '../actions/types';
 
 const INITIAL_STATE = { task: '', notes: '', category: '', dueDate: '', priority: '', alert: ''};
 
@@ -16,6 +16,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, priority: action.payload };
     case ALERT_CHANGED:
       return { ...state, alert: action.payload };
+    case CLEAR_ADD_FORM: 
+      return INITIAL_STATE;
     default:
       return state;
   }

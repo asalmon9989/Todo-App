@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, TextInput, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, ScrollView, TextInput, Text, StyleSheet, Dimensions, Picker } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 
@@ -7,11 +7,12 @@ import firebase from '@firebase/app';
 import '@firebase/database';
 
 import Input from '../common/Input';
+import TriLayout from '../common/TriLayout';
 import InputButton from '../common/InputButton';
 import CircleButton from '../common/CircleButton';
 import BottomRightFloat from '../common/BottomRightFloat';
 import { MaterialIcons, MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
-import { taskChanged, notesChanged, categoryChanged, dueDateChanged, category, alertChanged, priorityChanged } from '../../actions';
+import { taskChanged, notesChanged, categoryChanged, dueDateChanged, alertChanged, priorityChanged, clearAddForm } from '../../actions';
 import COLORS from '../../config/colors';
 
 const {width, height} = Dimensions.get('window');
@@ -32,7 +33,12 @@ class Add extends React.Component {
         this.taskList = [];
     }
     componentDidMount() {
-        this.__populateState();
+        //this.__populateState();
+        console.log("Mount");
+    }
+    componentWillUnmount() {
+        this.props.clearAddForm();
+        console.log("Unmount");
     }
     __populateState() {
         this.props.categoryChanged("Redux");
@@ -42,24 +48,24 @@ class Add extends React.Component {
     }
 
 
-    _onChangeTextTask(text) {
-        this.props.taskChanged(text);
-    }
-    _onChangeTextNotes(text) {
-        this.props.notesChanged(text);
-    }
-    _onCategoryPress(text) {
-        this.props.categoryChanged(text);
-    }
-    _onDueDatePress(text) {
-        this.props.dueDateChanged(text);
-    }
-    _onPriorityPress(text) {
-        this.props.priorityChanged(text);
-    }
-    _onAlertPress(text) {
-        this.props.alertChanged(text);
-    }
+    // _onChangeTextTask(text) {
+    //     this.props.taskChanged(text);
+    // }
+    // _onChangeTextNotes(text) {
+    //     this.props.notesChanged(text);
+    // }
+    // _onCategoryPress(text) {
+    //     //this.props.categoryChanged(text);
+    // }
+    // _onDueDatePress(text) {
+    //     //this.props.dueDateChanged(text);
+    // }
+    // _onPriorityPress(text) {
+    //     //this.props.priorityChanged(text);
+    // }
+    // _onAlertPress(text) {
+    //     //this.props.alertChanged(text);
+    // }
     _onCheckPress() {
         if (this.props.task === "") {
             alert("Enter a task");
@@ -70,7 +76,6 @@ class Add extends React.Component {
         Actions.popTo('HomeScreen');
     }
     saveTask(task) {
-        
         firebase.database().ref(`/taskList`)
             .push(task)
             .then(() => console.log("Task saved to firebase."));
@@ -92,52 +97,87 @@ class Add extends React.Component {
                         placeholder="New Task"
                         value={this.props.task}
                         label="Task: "
-                        onChangeText={this._onChangeTextTask.bind(this)}
+                        onChangeText={(text) => this.props.taskChanged(text)}
                     />
                 </View>
                 <View style={styles.inputStyle}>
-                    <InputButton 
-                        icon={<MaterialCommunityIcons name='pencil' size={26} color={COLORS.taskText}/>}
-                        label="Notes"
-                        value={this.props.notes}
-                        placeholder="None"
-                    />
+                    <TriLayout>
+                        <MaterialCommunityIcons name='pencil' size={26} color={COLORS.taskText}/>
+                        <Text style={[styles.labelStyle, COLORS.taskText]}>Notes</Text>
+                        <TextInput placeholder="Additional notes..." onChangeText={(text) => this.props.notesChanged(text)}>{this.props.notes}</TextInput>
+                    </TriLayout>
                 </View>
+
+
+
                 <View style={styles.inputStyle}>
-                    <InputButton 
-                        icon={<Octicons name='file-submodule' size={26} color={COLORS.taskText}/>}
-                        label="Category"
-                        value={this.props.category}
-                        editable={false}
-                        onPress={this._onCategoryPress.bind(this)}
-                    />
+                    <TriLayout>
+                        <Octicons name='file-submodule' size={26} color={COLORS.taskText}/>
+                        <Text style={[styles.labelStyle, COLORS.taskText]}>Category</Text>
+                        <View style={{marginLeft: -8}}>
+                            <Picker
+                                selectedValue={this.props.category}
+                                onValueChange={(value, i) => this.props.categoryChanged(value)}
+                                style={{width: 150}}
+                            >    
+                                <Picker.Item label="Coding" value="Coding" />
+                                <Picker.Item label="Work" value="Work" />
+                                <Picker.Item label="Exercise" value="Exercise" />
+                            </Picker>
+                        </View>
+                    </TriLayout>
                 </View>
+
                 <View style={styles.inputStyle}>
-                    <InputButton 
-                        icon={<MaterialCommunityIcons name='calendar' size={26} color={COLORS.taskText}/>}
-                        label="Due Date"
-                        value={this.props.dueDate}
-                        editable={false}
-                        onPress={this._onDueDatePress.bind(this)}
-                    />
+                    <TriLayout>
+                        <MaterialCommunityIcons name='calendar' size={26} color={COLORS.taskText}/>
+                        <Text style={[styles.labelStyle, COLORS.taskText]}>Due Date</Text>
+                        <View style={{marginLeft: -8}}>
+                            <Picker
+                                selectedValue={this.props.dueDate}
+                                onValueChange={(value, i) => this.props.dueDateChanged(value)}
+                                style={{width: 150}}
+                            >    
+                                <Picker.Item label="I'm brok" value="Hey fix this" />
+                            </Picker>
+                        </View>
+                    </TriLayout>
                 </View>
+
                 <View style={styles.inputStyle}>
-                    <InputButton 
-                        icon={<MaterialIcons name='priority-high' size={26} color={COLORS.taskText}/>}
-                        label="Priority"
-                        value={this.props.priority}
-                        editable={false}
-                        onPress={this._onPriorityPress.bind(this)}
-                    />
+                    <TriLayout>
+                        <MaterialIcons name='priority-high' size={26} color={COLORS.taskText}/>
+                        <Text style={[styles.labelStyle, COLORS.taskText]}>Priority</Text>
+                        <View style={{marginLeft: -8}}>
+                            <Picker
+                                selectedValue={this.props.priority}
+                                onValueChange={(value, i) => this.props.priorityChanged(value)}
+                                style={{width: 150}}
+                            >    
+                                <Picker.Item label="High" value="High" />
+                                <Picker.Item label="Normal" value="Normal" />
+                                <Picker.Item label="Low" value="Low" />
+                            </Picker>
+                        </View>
+                    </TriLayout>
                 </View>
+
+
                 <View style={styles.inputStyle}>
-                    <InputButton 
-                        icon={<MaterialCommunityIcons name='alert' size={26} color={COLORS.taskText}/>}
-                        label="Alert"
-                        value={this.props.alert}
-                        editable={false}
-                        onPress={this._onAlertPress.bind(this)}
-                    />
+                    <TriLayout>
+                        <MaterialCommunityIcons name='alert' size={26} color={COLORS.taskText}/>
+                        <Text style={[styles.labelStyle, COLORS.taskText]}>Alert</Text>
+                        <View style={{marginLeft: -8}}>
+                            <Picker
+                                selectedValue={this.props.alert}
+                                onValueChange={(value, i) => this.props.alertChanged(value)}
+                                style={{width: 150}}
+                            >    
+                                <Picker.Item label="None" value="None" />
+                                <Picker.Item label="Everyday" value="Everyday" />
+                            </Picker>
+                        </View>
+                    </TriLayout>
                 </View>
 
                 <BottomRightFloat>
@@ -145,6 +185,7 @@ class Add extends React.Component {
                         <MaterialIcons name='check' size={30} color={COLORS.floatIcon} onPress={this._onCheckPress.bind(this)}/>
                     </CircleButton>
                 </BottomRightFloat>
+
             </View>
         );
     }
@@ -161,7 +202,9 @@ const styles = StyleSheet.create({
         borderColor: 'rgba(0,0,0,0.1)',
         width: '100%',
     },
-
+    labelStyle: {
+        fontSize: 18,
+    },
 });
 
 const mapStateToProps = (state) => {
@@ -171,4 +214,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, { taskChanged, notesChanged, categoryChanged, dueDateChanged, priorityChanged, alertChanged })(Add);
+export default connect(mapStateToProps, { taskChanged, notesChanged, categoryChanged, dueDateChanged, priorityChanged, alertChanged, clearAddForm })(Add);

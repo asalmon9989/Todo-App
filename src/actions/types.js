@@ -5,3 +5,4 @@ export const CATEGORY_CHANGED = 'category_changed';
 export const DUE_DATE_CHANGED = 'due_date_changed';
 export const PRIORITY_CHANGED = 'priority_changed';
 export const ALERT_CHANGED = 'alert_changed';
+export const CLEAR_ADD_FORM = 'clear_add_form';
