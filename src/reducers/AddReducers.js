@@ -1,6 +1,6 @@
-import { TASK_CHANGED, NOTES_CHANGED, CATEGORY_CHANGED, DUE_DATE_CHANGED, PRIORITY_CHANGED, ALERT_CHANGED, CLEAR_ADD_FORM } from '../actions/types';
+import { TASK_CHANGED, NOTES_CHANGED, CATEGORY_CHANGED, DUE_DATE_CHANGED, PRIORITY_CHANGED, ALERT_CHANGED, CLEAR_ADD_FORM, TOGGLE_DATE_MODAL } from '../actions/types';
 
-const INITIAL_STATE = { task: '', notes: '', category: '', dueDate: '', priority: '', alert: ''};
+const INITIAL_STATE = { task: '', notes: '', category: '', dueDate: 0, priority: '', alert: '', dateModalVisible: false };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -18,6 +18,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, alert: action.payload };
     case CLEAR_ADD_FORM: 
       return INITIAL_STATE;
+    case TOGGLE_DATE_MODAL:
+      return { ...state, dateModalVisible: !state.dateModalVisible }
     default:
       return state;
   }

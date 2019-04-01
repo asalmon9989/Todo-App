@@ -48,7 +48,8 @@ class TaskList extends React.Component {
                 textStyle={{color: COLORS.taskText}} 
                 radioColor={COLORS.taskText}
                 backgroundColor={COLORS.taskBackground}
-                onPress={() => this.props.onItemPress}
+                onPress={() => this.props.onItemPress(item)}
+                onRadioPress={() => this.props.onItemRadioPress(item)}
             />
         )
     }

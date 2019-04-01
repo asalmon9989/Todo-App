@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, ScrollView, TextInput, Text, StyleSheet, Dimensions, Picker } from 'react-native';
+import { View, ScrollView, TextInput, Text, StyleSheet, Dimensions, Picker, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
-
+import DateTimePicker from 'react-native-modal-datetime-picker';
+import { format, parse } from 'date-fns'
 import firebase from '@firebase/app';
 import '@firebase/database';
 
@@ -12,7 +13,7 @@ import InputButton from '../common/InputButton';
 import CircleButton from '../common/CircleButton';
 import BottomRightFloat from '../common/BottomRightFloat';
 import { MaterialIcons, MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
-import { taskChanged, notesChanged, categoryChanged, dueDateChanged, alertChanged, priorityChanged, clearAddForm } from '../../actions';
+import { taskChanged, notesChanged, categoryChanged, dueDateChanged, alertChanged, priorityChanged, clearAddForm, toggleDateModal } from '../../actions';
 import COLORS from '../../config/colors';
 
 const {width, height} = Dimensions.get('window');
@@ -30,7 +31,9 @@ const {width, height} = Dimensions.get('window');
 class Add extends React.Component {
     constructor(props) {
         super(props);
-        this.taskList = [];
+        if (!this.props.dueDate) {
+            this.props.dueDateChanged((new Date()).getTime());
+        }
     }
     componentDidMount() {
         //this.__populateState();
@@ -40,11 +43,23 @@ class Add extends React.Component {
         this.props.clearAddForm();
         console.log("Unmount");
     }
-    __populateState() {
-        this.props.categoryChanged("Redux");
-        this.props.dueDateChanged("03-30-2019");
-        this.props.priorityChanged("HiGh");
-        this.props.alertChanged("Nope");
+    _renderDatePicker() {
+        return (
+            <DateTimePicker
+                isVisible={this.props.dateModalVisible}
+                date={parse(this.props.dueDate)}
+                onConfirm={this._onDateConfirm.bind(this)}
+                onCancel={() => this.props.toggleDateModal() }
+            />
+        )
+    }
+    _onDateConfirm(date) {
+        console.log(date);
+        this.props.dueDateChanged(date.getTime())
+        this.props.toggleDateModal()
+    }
+    getDueDate() {
+        return format(this.props.dueDate, 'MM-DD-YYYY');
     }
 
 
@@ -82,8 +97,9 @@ class Add extends React.Component {
     }
     parseTask() {
         const { task, notes, category, dueDate, priority, alert } = this.props;
+        console.log("DUE: ", dueDate)
         return {
-            task, notes, category, dueDate, priority, alert
+            task, notes, category, dueDate: JSON.stringify(dueDate), priority, alert
         };
     }
 
@@ -92,6 +108,7 @@ class Add extends React.Component {
     render() {
         return (
             <View style={styles.containerStyle}>
+            {this._renderDatePicker()}
                 <View style={styles.inputStyle}>
                     <Input
                         placeholder="New Task"
@@ -132,14 +149,12 @@ class Add extends React.Component {
                     <TriLayout>
                         <MaterialCommunityIcons name='calendar' size={26} color={COLORS.taskText}/>
                         <Text style={[styles.labelStyle, COLORS.taskText]}>Due Date</Text>
-                        <View style={{marginLeft: -8}}>
-                            <Picker
-                                selectedValue={this.props.dueDate}
-                                onValueChange={(value, i) => this.props.dueDateChanged(value)}
-                                style={{width: 150}}
-                            >    
-                                <Picker.Item label="I'm brok" value="Hey fix this" />
-                            </Picker>
+                        <View style={{height: 30}}>
+                            <TouchableOpacity
+                                onPress={() => this.props.toggleDateModal()}
+                            >
+                                <Text>{this.getDueDate()}</Text>
+                            </TouchableOpacity>
                         </View>
                     </TriLayout>
                 </View>
@@ -208,10 +223,10 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => {
-    const { task, notes, category, dueDate, priority, alert } = state.add;
+    const { task, notes, category, dueDate, priority, alert, dateModalVisible } = state.add;
     return {
-        task, notes, category, dueDate, priority, alert
+        task, notes, category, dueDate, priority, alert, dateModalVisible
     }
 };
 
-export default connect(mapStateToProps, { taskChanged, notesChanged, categoryChanged, dueDateChanged, priorityChanged, alertChanged, clearAddForm })(Add);
+export default connect(mapStateToProps, { taskChanged, notesChanged, categoryChanged, dueDateChanged, priorityChanged, alertChanged, clearAddForm, toggleDateModal })(Add);

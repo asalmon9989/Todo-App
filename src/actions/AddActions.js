@@ -1,4 +1,4 @@
-import { TASK_CHANGED, NOTES_CHANGED, CATEGORY_CHANGED, DUE_DATE_CHANGED, PRIORITY_CHANGED, ALERT_CHANGED, CLEAR_ADD_FORM } from './types';
+import { TASK_CHANGED, NOTES_CHANGED, CATEGORY_CHANGED, DUE_DATE_CHANGED, PRIORITY_CHANGED, ALERT_CHANGED, CLEAR_ADD_FORM, TOGGLE_DATE_MODAL } from './types';
 
 export const taskChanged = (text) => {
   return {
@@ -36,9 +36,14 @@ export const alertChanged = (text) => {
     payload: text
   };
 };
+export const toggleDateModal = () => {
+  return {
+    type: TOGGLE_DATE_MODAL
+  };
+};
 export const clearAddForm = () => {
   return {
     type: CLEAR_ADD_FORM,
     payload: ''
-  }
-}
+  };
+};
