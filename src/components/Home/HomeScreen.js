@@ -75,7 +75,7 @@ class HomeScreen extends React.Component {
   sort(tasks, field) { 
     return _.sortBy(tasks, field); 
   }
-  _onTaskPress(task) {
+  _onTaskRadioPress(task) {
     firebase.database().ref(`/taskList/${task.uid}`).remove((err) => {
       if (err) {
         console.log(err)
@@ -92,7 +92,7 @@ class HomeScreen extends React.Component {
           <TaskList 
             sections={this.state.sections}
             onItemPress={() => {}}
-            onItemRadioPress={this._onTaskPress.bind(this)} 
+            onItemRadioPress={this._onTaskRadioPress.bind(this)} 
           />
         </View>
 
